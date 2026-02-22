@@ -12,6 +12,13 @@
 @import                          "shared/colors.rasi"
 @import                          "shared/fonts.rasi"
 
+configuration {
+    drun-display-format: "{name}";
+    drun-match-fields:          "name";
+    sorting-method:             "fzf";
+    matching:                   "fuzzy";
+}
+
 /*****----- Main Window -----*****/
 window {
     /* properties for window widget */
