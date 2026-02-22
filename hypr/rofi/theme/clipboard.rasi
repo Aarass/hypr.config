@@ -1,0 +1,137 @@
+/**
+ * Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
+ **/
+
+/*****----- Configuration -----*****/
+configuration {
+    show-icons:                 false;
+}
+
+/*****----- Global Properties -----*****/
+@import                          "shared/colors.rasi"
+@import                          "shared/fonts.rasi"
+
+* {
+    border-colour:               var(selected);
+    background-colour:           var(background);
+    foreground-colour:           var(foreground);
+    alternate-background:        var(background-alt);
+}
+
+/*****----- Main Window -----*****/
+window {
+    /* properties for window widget */
+    transparency:                "real";
+    location:                    south east;
+    anchor:                      south east;
+    fullscreen:                  false;
+    width:                       500px;
+    height:                      600px;
+    x-offset:                    -20px;
+    y-offset:                    -20px;
+
+    /* properties for all widgets */
+    enabled:                     true;
+    border-radius:               12px;
+    border-color:                @border-colour;
+    background-color:            @background-colour;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     20px;
+    border:                      0px solid;
+    border-radius:               0px 0px 0px 0px;
+    border-color:                @border-colour;
+    background-color:            transparent;
+    children:                    [ "inputbar", "listview" ];
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px 0px 20px 0px;
+    padding:                     0px 0px 0px 0px;
+    border:                      0px 0px 0px 0px;
+    border-radius:               0px;
+    border-color:                @border-colour;
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+    children:                    [ "textbox-prompt-colon", "entry" ];
+}
+
+textbox-prompt-colon {
+    enabled:                     true;
+    padding:                     6px 10px;
+    border-radius:               12px;
+    expand:                      false;
+    str:                         "";
+    background-color:            @selected;
+    text-color:                  @background;
+}
+
+entry {
+    enabled:                     true;
+    padding:                     6px 0px;
+    background-color:            inherit;
+    text-color:                  inherit;
+    cursor:                      text;
+    placeholder:                 "Search clipboard...";
+    placeholder-color:           inherit;
+}
+
+/*****----- Listview -----*****/
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       6;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    
+    spacing:                     5px;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @border-colour;
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+    cursor:                      "default";
+}
+
+/*****----- Elements -----*****/
+element {
+    enabled:                     true;
+    spacing:                     0px;
+    margin:                      0px;
+    padding:                     6px 15px;
+    border:                      0px solid;
+    border-radius:               10px;
+    border-color:                @border-colour;
+    cursor:                      pointer;
+    background-color:            var(background-colour);
+    text-color:                  var(foreground-colour);
+}
+
+element selected {
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}

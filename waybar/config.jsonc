@@ -1,0 +1,62 @@
+{
+    "layer": "bottom",
+    "margin": "8 10 0 10",
+    "modules-left": ["network","disk"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": [ "wireplumber", "backlight", "battery", "clock"],
+    "backlight/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal",
+        "device": "intel_backlight"
+    },
+    "disk": {
+        "format": "󰋊 {specific_free:0.0f} GB",
+        "unit": "GB"
+    },
+    "network": {
+        "format": "󰤨 Online",
+        "format-disconnected": "<span color='#EA7B7B'>󰤮 Offline</span>"
+    },
+    "wireplumber": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 Muted",
+        "max-volume": 150,
+        "scroll-step": 5,
+        "tooltip": false,
+        "format-icons": ["󰕿", "󰖀", "󰕾"],
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "focused": ".",
+            "persistent": "."
+        },
+    },
+    "backlight": {
+        "format": " {percent}%",
+    },
+    "battery": {
+        "bat": "BAT0",
+        "format": "{icon} {capacity}%",
+        "format-icons": {
+            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+        },
+    },
+    "clock": {
+        "format": "{:%a, %b %d · <span  weight='extra-bold' color='#d5d1b9'>%H:%M %p</span>}",
+        "markup": true
+    },
+}

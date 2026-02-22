@@ -1,0 +1,97 @@
+/* @define-color accent #EA7B7B; */
+@define-color background #2a2e24;
+@define-color whitish #d5d1b9;
+@define-color blackish #2d353a;
+@define-color accent #9eb77c;
+
+* {
+    font-family: Jetbrains Mono Nerd Font;
+    font-size: 18px;
+    letter-spacing: -1px;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+
+#workspaces {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: @background;
+    padding: 0 0px;
+    border-radius: 0 99px 99px 0;
+    border-radius: 99px;
+}
+
+#workspaces .workspace-label {
+    margin-left: -5px;
+    margin-bottom: -2px;
+}
+
+#workspaces button {
+    margin: 5px;
+    padding: 2px 7px;
+    border-radius: 99px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: @whitish;
+}
+
+#workspaces button.active {
+    padding-left: 20px;
+    padding-right: 20px;
+    color: @blackish;
+    background-color: @accent;
+}
+
+#clock {
+    padding: 0px 15px;
+    border-radius: 99px;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: @background;
+    color: @accent;
+}
+
+#battery {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: @background;
+    margin-right: 8px;
+    padding: 0px 15px;
+    color: @accent;
+    border-radius: 99px;
+}
+
+#disk {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: @background;
+    margin-right: 8px;
+    padding: 0px 15px;
+    color: @accent;
+    border-radius: 99px;
+}
+
+#network {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: @background;
+    margin-right: 8px;
+    padding: 0px 15px;
+    color: @accent;
+    border-radius: 99px;
+}
+
+#wireplumber {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: @background;
+    margin-right: 8px;
+    padding: 0px 15px;
+    color: @accent;
+    border-radius: 99px;
+}
+
+#backlight {
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: @background;
+    margin-right: 8px;
+    padding: 0px 15px;
+    color: @accent;
+    border-radius: 99px;
+}
