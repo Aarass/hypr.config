@@ -5,7 +5,6 @@
 @define-color accent #9eb77c;
 
 * {
-    font-family: Jetbrains Mono Nerd Font;
     font-size: 18px;
     letter-spacing: -1px;
 }
@@ -16,6 +15,7 @@ window#waybar {
 
 
 #workspaces {
+    font-family: "Font Awesome 7 Free";
     /* background-color: rgba(0, 0, 0, 0.7); */
     background-color: @background;
     padding: 0 0px;
@@ -23,9 +23,10 @@ window#waybar {
     border-radius: 99px;
 }
 
+
 #workspaces .workspace-label {
-    margin-left: -5px;
-    margin-bottom: -2px;
+    /* margin-left: -5px; */
+    /* margin-bottom: -2px; */
 }
 
 #workspaces button {
@@ -44,6 +45,7 @@ window#waybar {
 }
 
 #clock {
+    font-family: Jetbrains Mono Nerd Font;
     padding: 0px 15px;
     border-radius: 99px;
     /* background-color: rgba(0, 0, 0, 0.7); */
@@ -52,6 +54,7 @@ window#waybar {
 }
 
 #battery {
+    font-family: Jetbrains Mono Nerd Font;
     /* background-color: rgba(0, 0, 0, 0.7); */
     background-color: @background;
     margin-right: 8px;
@@ -61,6 +64,7 @@ window#waybar {
 }
 
 #disk {
+    font-family: Jetbrains Mono Nerd Font;
     /* background-color: rgba(0, 0, 0, 0.7); */
     background-color: @background;
     margin-right: 8px;
@@ -70,6 +74,7 @@ window#waybar {
 }
 
 #network {
+    font-family: Jetbrains Mono Nerd Font;
     /* background-color: rgba(0, 0, 0, 0.7); */
     background-color: @background;
     margin-right: 8px;
@@ -79,6 +84,7 @@ window#waybar {
 }
 
 #wireplumber {
+    font-family: Jetbrains Mono Nerd Font;
     /* background-color: rgba(0, 0, 0, 0.7); */
     background-color: @background;
     margin-right: 8px;
@@ -88,6 +94,7 @@ window#waybar {
 }
 
 #backlight {
+    font-family: Jetbrains Mono Nerd Font;
     /* background-color: rgba(0, 0, 0, 0.7); */
     background-color: @background;
     margin-right: 8px;
