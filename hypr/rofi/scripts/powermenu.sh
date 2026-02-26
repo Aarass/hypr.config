@@ -35,30 +35,25 @@ case "$(run_rofi)" in
 		fi
         ;;
     $lock)
-
-		notify-send "Not yet implemented"
-		# if [[ -x '/usr/bin/betterlockscreen' ]]; then
-		# 	betterlockscreen -l
-		# elif [[ -x '/usr/bin/i3lock' ]]; then
-		# 	i3lock
-		# fi
+		pidof hyprlock || hyprlock
         ;;
     $suspend)
 		if confirm_exit; then
-			mpc -q pause
-			amixer set Master mute
+			wpctl set-mute @DEFAULT_AUDIO_SINK@ 1 &
+			playerctl pause --all-players &
+			pidof hyprlock || hyprlock &
 			systemctl suspend
 		fi
         ;;
     $hibernate)
 		if confirm_exit; then
-			notify-send "Not yet implemented"
+			pidof hyprlock || hyprlock &
+			systemctl hibernate
 		fi
         ;;
     $logout)
 		if confirm_exit; then
 			hyprctl dispatch exit
-			# notify-send "Not yet implemented"
 		fi
         ;;
 esac
