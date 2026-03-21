@@ -1,9 +1,9 @@
 {
   "layer": "bottom",
   "margin": "8 10 0 10",
-  "modules-left": ["custom/menu", "hyprland/workspaces"],
+  "modules-left": ["hyprland/workspaces"],
   "modules-center": ["custom/tmux"],
-  "modules-right": ["network", "wireplumber", "battery", "clock"],
+  "modules-right": ["wireplumber", "battery", "network", "clock"],
   "backlight/slider": {
     "min": 0,
     "max": 100,
@@ -15,7 +15,7 @@
     "unit": "GB",
   },
   "network": {
-    "format": " ",
+    "format": "",
     "format-disconnected": "<span color='#EA7B7B'>󰤮 Offline</span>",
   },
   "wireplumber": {
@@ -56,11 +56,8 @@
     },
   },
   "clock": {
-    "format": "{:%a, %b %d · <span  weight='extra-bold' color='#d5d1b9'>%H:%M %p</span>}",
+    "format": "· {:%a, %b %d · <span  weight='extra-bold' color='#d5d1b9'>%H:%M %p</span>}",
     "markup": true,
-  },
-  "custom/menu": {
-    "format": "",
     "tooltip": false,
     "on-click": "/home/aaras/.local/bin/eww open powermenu --toggle",
   },

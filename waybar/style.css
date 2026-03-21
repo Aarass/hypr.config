@@ -45,8 +45,7 @@ window#waybar {
 #clock {
   font-family: Jetbrains Mono Nerd Font;
   padding: 0px 15px;
-  border-radius: 99px;
-  /* background-color: rgba(0, 0, 0, 0.7); */
+  border-radius: 0 99px 99px 0;
   background-color: @background;
   color: @accent;
 }
@@ -72,13 +71,11 @@ window#waybar {
 }
 
 #network {
-  font-family: Jetbrains Mono Nerd Font;
-  /* background-color: rgba(0, 0, 0, 0.7); */
+  font-family: "Font Awesome 7 Free";
   background-color: @background;
-  margin-right: 8px;
-  padding: 0px 15px;
+  padding: 0 0 0 15px;
   color: @accent;
-  border-radius: 99px;
+  border-radius: 99px 0 0 99px;
 }
 
 #bluetooth {
@@ -108,12 +105,6 @@ window#waybar {
   padding: 0px 15px;
   color: @accent;
   border-radius: 99px;
-}
-
-#custom-menu {
-  color: @accent;
-  font-size: 25px;
-  margin-right: 8px;
 }
 
 #custom-tmux {
