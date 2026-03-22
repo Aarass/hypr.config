@@ -1,0 +1,156 @@
+(defvar eww "/home/aaras/.local/bin/eww")
+(defvar close "/home/aaras/.local/bin/eww close powermenu")
+
+; (defvar volume 50)
+; (defvar brightness 12)
+
+(defpoll net_status :interval "5s" "/home/aaras/.config/eww/scripts/network.sh")
+(defpoll bt_status :interval "5s" "/home/aaras/.config/eww/scripts/bluetooth.sh")
+(defpoll dunst_muted :interval "5s" "dunstctl is-paused")
+(defpoll brightness :interval "1s" "/home/aaras/.config/eww/scripts/brightness.sh")
+(defpoll volume :interval "1s" "/home/aaras/.config/eww/scripts/volume.sh")
+(defpoll muted :interval "1s" "wpctl get-volume @DEFAULT_SINK@ | grep -q MUTED && echo 1 || echo 0")
+
+
+(defwindow powermenu
+  :monitor 0
+  :geometry (geometry
+  :x "10px"
+  :y "10px"
+  :anchor "top right")
+  :stacking "fg"
+  (panel))
+
+;   :monitor 0
+;   :geometry (geometry :width "100%" :height "100%")
+;   :stacking "fg"
+;   :focusable false
+;   :close-on-escape true
+
+
+(defwidget main []
+  (overlay :class "slider"
+    (eventbox :onclick {close})
+    (panel)
+    )
+  )
+
+(defwidget panel []
+  (box
+    :class "panel"
+    :orientation "v"
+    :space-evenly "false"
+    :spacing 14
+
+    (header)
+    (control)
+    (calendar)
+    )
+  )
+
+(defwidget header []
+  (box :space-evenly "false"
+    (user)
+    (box :hexpand true)
+    (box :orientation "vertical" :space-evenly "false"
+      (eventbox :cursor "pointer"
+        (button
+          :class "close"
+          :onclick {close}
+          (label :text "" :valign "start")
+          )
+        )
+      (box :vexpand true)
+      )
+    )
+  )
+
+(defwidget user []
+  (box :space-evenly "false"
+    (box :class "avatar")
+    (box :orientation "v"
+      (label :class "username" :text "aaras" :valign "end" :halign "start")
+      (label :class "name" :text "Aleksandar" :valign "end" :halign "start")
+      )
+    )
+  )
+
+(defwidget control []
+  (box :orientation "v" :space-evenly false :spacing 14 :class "control" 
+    (box :orientation "h" :spacing 10
+      ; Network
+      (eventbox
+        :cursor "pointer"
+        (button
+          :onclick "${close}; nmgui"
+          :onmiddleclick  "${close}; nm-connection-editor"
+          (pill :icon "" :text {net_status}  :active {net_status == "Online"})
+          )
+        )
+
+      ; Bluetooth
+      (eventbox
+        :cursor "pointer"
+        (button
+          :onclick "${close}; bash -c 'blueman-manager'; end"
+          (pill :icon "" :text {bt_status == "0" ? "Off" : (bt_status == "1" ? "On" : "Cncted")} :active {bt_status != "0"})
+          )
+        )
+
+      ; Noop
+      (eventbox
+        :cursor "not-allowed"
+        (button
+          (pill :icon "" :text "Normal" :active false)
+          )
+        )
+
+      ; Dunst
+      (eventbox
+        :cursor "pointer"
+        (button
+          :onclick "${eww} update dunst_muted=${!dunst_muted}; dunstctl set-paused toggle"
+          (pill :icon "" :text {dunst_muted ? "Muted" : "On"} :active {!dunst_muted})
+          )
+        )
+      )
+
+    (overlay :class "slider"
+      (scale :class "brightness"
+             :min 0
+             :max 100
+             :value brightness
+             :onchange "${eww} update brightness=$(( {}<10 ? 10 : {} )) && brightnessctl set $(( {}<10 ? 10 : {} ))%"
+        )
+      (label :class "icon" :text "" :halign "start")
+      )
+
+    (overlay :class "slider"
+      (scale :class "volume"
+             :min -10
+             :max 101
+             :value volume
+             :onchange "${eww} update volume=$(( {}<0 ? 0 : {} )) && ${eww} update muted=0 && wpctl set-mute @DEFAULT_SINK@ 0 && wpctl set-volume @DEFAULT_SINK@ $(( {}<0 ? 0 : {} ))%"
+        )
+      (eventbox :cursor "pointer" :halign "start" 
+        (button :class "volume-mute"
+                :onclick "${eww} update muted=${muted == "1" ? "0" : "1"} && wpctl set-mute @DEFAULT_SINK@ toggle"
+          (label :class "icon" :text { muted == "1" ? "" : "" } :halign "start")
+          )
+        )
+      )
+    )
+  )
+
+(defwidget pill [icon text ?active]
+  (box
+    :class { active == true ? "pill pill-active" : "pill" }
+    :orientation "v"
+    :halign "center"
+    :valign "center"
+    :spacing 4
+
+    (label :class "pill-icon" :text icon)
+    (label :class "pill-text" :text text :limit-width 50)
+    )
+  )

@@ -1,0 +1,24 @@
+    (control)
+
+    ; onclick: string command to run when the user selects a date. The {0} placeholder will be replaced by the selected day, {1} will be replaced by the month, and {2} by the year.
+    ; mozda da kreiram evente na click
+    (calendar)
+
+    ; : bool show details
+
+    ; : bool show names of days
+
+
+
+; (defwidget closer-widget [window]
+;   (eventbox :onclick "eww close closer && eww close ${window}"))
+;
+; (defwindow closer
+;   :monitor 0
+;   :geometry (geometry :width "100%" :height "100%")
+;   :stacking "fg"
+;   :focusable false
+;   :close-on-escape true
+;   (closer-widget :window "panel"))
+
+
