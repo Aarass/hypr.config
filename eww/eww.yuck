@@ -1,50 +1,45 @@
-(defvar eww "/home/aaras/.local/bin/eww")
-(defvar close "/home/aaras/.local/bin/eww close powermenu")
+(defvar eww "~/.local/bin/eww")
+(defvar close "~/.local/bin/eww close powermenu")
 
-; (defvar volume 50)
-; (defvar brightness 12)
+(defpoll uptime_status :interval "5s" "~/.config/eww/scripts/status/uptime_status.sh")
+(defpoll net_status :interval "5s" "~/.config/eww/scripts/status/network_status.sh")
+(defpoll bt_status :interval "5s" "~/.config/eww/scripts/status/bluetooth_status.sh")
+(defpoll dunst_muted :interval "5s" "~/.config/eww/scripts/status/dunst_status.sh")
+(defpoll brightness :interval "1s" "~/.config/eww/scripts/status/brightness_status.sh")
+(defpoll volume :interval "1s" "~/.config/eww/scripts/status/volume_status.sh")
+(defpoll muted :interval "1s" "~/.config/eww/scripts/status/muted_status.sh")
 
-(defpoll net_status :interval "5s" "/home/aaras/.config/eww/scripts/network.sh")
-(defpoll bt_status :interval "5s" "/home/aaras/.config/eww/scripts/bluetooth.sh")
-(defpoll dunst_muted :interval "5s" "dunstctl is-paused")
-(defpoll brightness :interval "1s" "/home/aaras/.config/eww/scripts/brightness.sh")
-(defpoll volume :interval "1s" "/home/aaras/.config/eww/scripts/volume.sh")
-(defpoll muted :interval "1s" "wpctl get-volume @DEFAULT_SINK@ | grep -q MUTED && echo 1 || echo 0")
-
+(defvar network_click "~/.config/eww/scripts/actions/network_click.sh")
+(defvar network_right_click "~/.config/eww/scripts/actions/network_right_click.sh")
+(defvar bluetooth_click "~/.config/eww/scripts/actions/bluetooth_click.sh")
+(defvar dunst_click "~/.config/eww/scripts/actions/dunst_click.sh")
+(defvar brightness_change "~/.config/eww/scripts/actions/brightness_change.sh")
+(defvar volume_change "~/.config/eww/scripts/actions/volume_change.sh")
+(defvar volume_mute "~/.config/eww/scripts/actions/volume_mute.sh")
 
 (defwindow powermenu
   :monitor 0
   :geometry (geometry :width "100%" :height "100%")
   :stacking "fg"
-  (main)
+  (main :hpadding 20 :vpadding 20)
   )
 
-;   :monitor 0
-;   :geometry (geometry :width "100%" :height "100%")
-;   :stacking "fg"
-;   :focusable false
-;   :close-on-escape true
-
-
-(defwidget main []
-  (overlay :class "slider"
-    (eventbox :width 500 :height 500 :onclick {close} :hexpand true :vexpand true)
-    (box
-      :halign "end"
-      :valign "start"
-      :class "main"
-      (panel)
+(defwidget main [hpadding vpadding]
+  (box :hexpand true :vexpand true :space-evenly "false"
+    (eventbox :onclick {close} :hexpand true :vexpand true :cursor "cell")
+    (box :orientation "v" :vexpand true :space-evenly "false"
+      (eventbox :onclick {close} :height {vpadding} :cursor "cell")
+      (box :space-evenly "false"
+        (panel)
+        (eventbox :onclick {close} :width {hpadding} :cursor "cell")
+        )
+      (eventbox :onclick {close} :hexpand true :vexpand true :cursor "cell")
       )
     )
   )
 
 (defwidget panel []
-  (box
-    :class "panel"
-    :orientation "v"
-    :space-evenly "false"
-    :spacing 14
-
+  (box :orientation "v" :class "panel" :space-evenly "false" :spacing 14
     (header)
     (control)
     (calendar)
@@ -52,18 +47,15 @@
   )
 
 (defwidget header []
-  (box :space-evenly "false"
+  (box :space-evenly "false" :hexpand true 
     (user)
-    (box :hexpand true)
-    (box :orientation "vertical" :space-evenly "false"
-      (eventbox :cursor "pointer"
-        (button
-          :class "close"
-          :onclick {close}
-          (label :text "" :valign "start")
-          )
+    (box :orientation "v" :hexpand true :vexpand true :space-evenly "false"
+      (eventbox :onclick {close} :hexpand false :halign "end" :valign "start" :cursor "pointer" 
+        (label :text "" :valign "start" :class "close")
         )
-      (box :vexpand true)
+      (box :hexpand true :vexpand true :halign "end" :valign "end"
+        (uptime)
+        )
       )
     )
   )
@@ -78,43 +70,29 @@
     )
   )
 
+(defwidget uptime []
+  (box :class "uptime"
+    (label :text " up ${uptime_status}")
+    )
+  )
+
 (defwidget control []
   (box :orientation "v" :space-evenly false :spacing 14 :class "control" 
     (box :orientation "h" :spacing 10
-      ; Network
-      (eventbox
-        :cursor "pointer"
-        (button
-          :onclick "${close}; nmgui"
-          :onmiddleclick  "${close}; nm-connection-editor"
-          (pill :icon "" :text {net_status}  :active {net_status == "Online"})
-          )
+      (btn :onclick {network_click} :onrightclick {network_right_click}
+        (pill :icon "" :text {net_status}  :active {net_status == "Online"})
         )
 
-      ; Bluetooth
-      (eventbox
-        :cursor "pointer"
-        (button
-          :onclick "${close}; bash -c 'blueman-manager'; end"
-          (pill :icon "" :text {bt_status == "0" ? "Off" : (bt_status == "1" ? "On" : "Cncted")} :active {bt_status != "0"})
-          )
+      (btn :onclick {bluetooth_click}
+        (pill :icon "" :text {bt_status == "0" ? "Off" : (bt_status == "1" ? "On" : "Cncted")} :active {bt_status != "0"})
         )
 
-      ; Noop
-      (eventbox
-        :cursor "not-allowed"
-        (button
-          (pill :icon "" :text "Normal" :active false)
-          )
+      (btn :disabled true
+        (pill :icon "" :text "Normal" :active false)
         )
 
-      ; Dunst
-      (eventbox
-        :cursor "pointer"
-        (button
-          :onclick "${eww} update dunst_muted=${!dunst_muted}; dunstctl set-paused toggle"
-          (pill :icon "" :text {dunst_muted ? "Muted" : "On"} :active {!dunst_muted})
-          )
+      (btn :onclick {dunst_click}
+        (pill :icon "" :text {dunst_muted ? "Muted" : "On"} :active {!dunst_muted})
         )
       )
 
@@ -123,7 +101,7 @@
              :min 0
              :max 100
              :value brightness
-             :onchange "${eww} update brightness=$(( {}<10 ? 10 : {} )) && brightnessctl set $(( {}<10 ? 10 : {} ))%"
+             :onchange "${brightness_change} {}"
         )
       (label :class "icon" :text "" :halign "start")
       )
@@ -133,11 +111,10 @@
              :min -10
              :max 101
              :value volume
-             :onchange "${eww} update volume=$(( {}<0 ? 0 : {} )) && ${eww} update muted=0 && wpctl set-mute @DEFAULT_SINK@ 0 && wpctl set-volume @DEFAULT_SINK@ $(( {}<0 ? 0 : {} ))%"
+             :onchange "${volume_change} {}"
         )
       (eventbox :cursor "pointer" :halign "start" 
-        (button :class "volume-mute"
-                :onclick "${eww} update muted=${muted == "1" ? "0" : "1"} && wpctl set-mute @DEFAULT_SINK@ toggle"
+        (button :class "volume-mute" :onclick {volume_mute}
           (label :class "icon" :text { muted == "1" ? "" : "" } :halign "start")
           )
         )
@@ -155,5 +132,13 @@
 
     (label :class "pill-icon" :text icon)
     (label :class "pill-text" :text text :limit-width 50)
+    )
+  )
+
+(defwidget btn [?onclick ?onrightclick ?disabled]
+  (eventbox :cursor { (disabled == true) ? "not-allowed" : "pointer" }
+    (button :onclick {onclick} :onrightclick {onrightclick}
+      (children)
+      )
     )
   )
