@@ -1,4 +1,5 @@
 title="$(hyprctl activewindow -j 2>/dev/null | jq -r '.title // empty' || true)"
+title="${title//🔔 /}"
 
 # Očekujemo title u formatu: $SESSION_ID|@WINDOW_ID
 if [[ -z "${title}" || "${title}" != *"|"* ]]; then
