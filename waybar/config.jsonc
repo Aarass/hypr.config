@@ -3,7 +3,7 @@
   "margin": "8 10 0 10",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["custom/tmux"],
-  "modules-right": ["wireplumber", "battery", "network", "clock"],
+  "modules-right": ["battery", "network", "clock"],
   "backlight/slider": {
     "min": 0,
     "max": 100,
@@ -15,8 +15,8 @@
     "unit": "GB",
   },
   "network": {
-    "format": "",
-    "format-disconnected": "<span color='#EA7B7B'>󰤮 Offline</span>",
+    "format": "<span color='#9eb77c'></span>",
+    "format-disconnected": "<span color='#ea7b7b'></span>",
   },
   "wireplumber": {
     "format": "{icon} {volume}%",
