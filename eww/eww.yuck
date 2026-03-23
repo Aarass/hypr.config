@@ -14,12 +14,10 @@
 
 (defwindow powermenu
   :monitor 0
-  :geometry (geometry
-  :x "10px"
-  :y "10px"
-  :anchor "top right")
+  :geometry (geometry :width "100%" :height "100%")
   :stacking "fg"
-  (panel))
+  (main)
+  )
 
 ;   :monitor 0
 ;   :geometry (geometry :width "100%" :height "100%")
@@ -30,8 +28,13 @@
 
 (defwidget main []
   (overlay :class "slider"
-    (eventbox :onclick {close})
-    (panel)
+    (eventbox :width 500 :height 500 :onclick {close} :hexpand true :vexpand true)
+    (box
+      :halign "end"
+      :valign "start"
+      :class "main"
+      (panel)
+      )
     )
   )
 
