@@ -1,1 +1,4 @@
-wpctl get-volume @DEFAULT_SINK@ | grep -q MUTED && echo 1 || echo 0
+~/.config/shared/scripts/statuses.sh | while read -r line; do
+  muted=$(echo "$line" | jq '.muted')
+  printf '%s\n' "$muted"
+done

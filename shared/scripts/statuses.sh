@@ -1,3 +1,4 @@
+timer_pid=""
 fifo=$(mktemp -u)
 mkfifo "$fifo" >/dev/null 2>&1
 
@@ -86,13 +87,21 @@ while true; do
   [ -z "$online" ] && continue
   [ -z "$volume" ] && continue
 
-  jq -nc \
-    --argjson muted "$([[ $muted -eq 1 ]] && echo true || echo false)" \
-    --argjson online "$([[ $online -eq 1 ]] && echo true || echo false)" \
-    --argjson volume "$volume" \
-    '{
+  if [[ -n "$timer_pid" ]]; then
+    kill "$timer_pid" 2>/dev/null
+  fi
+
+  (
+    sleep 1
+    jq -nc \
+      --argjson muted "$([[ $muted -eq 1 ]] && echo true || echo false)" \
+      --argjson online "$([[ $online -eq 1 ]] && echo true || echo false)" \
+      --argjson volume "$volume" \
+      '{
       muted: $muted,
       online: $online,
       volume: $volume,
     }'
+  ) &
+  timer_pid=$!
 done

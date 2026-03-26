@@ -1,2 +1,2 @@
-~/.local/bin/eww close powermenu
-blueman-manager
+blueman-manager &
+~/.local/bin/eww close powermenu &

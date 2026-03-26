@@ -1,1 +1,4 @@
-wpctl get-volume @DEFAULT_SINK@ | awk '{printf "%d\n", $2*100}'
+~/.config/shared/scripts/statuses.sh | while read -r line; do
+  volume=$(echo "$line" | jq '.volume')
+  printf '%s\n' "$volume"
+done

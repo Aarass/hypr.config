@@ -1,2 +1,2 @@
-~/.local/bin/eww close powermenu
-nmgui
+nmgui &
+~/.local/bin/eww close powermenu &

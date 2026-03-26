@@ -2,12 +2,12 @@
 (defvar close "~/.local/bin/eww close powermenu")
 
 (defpoll uptime_status :interval "5s" "~/.config/eww/scripts/status/uptime_status.sh")
-(defpoll net_status :interval "5s" "~/.config/eww/scripts/status/network_status.sh")
 (defpoll bt_status :interval "5s" "~/.config/eww/scripts/status/bluetooth_status.sh")
 (defpoll dunst_muted :interval "5s" "~/.config/eww/scripts/status/dunst_status.sh")
 (defpoll brightness :interval "1s" "~/.config/eww/scripts/status/brightness_status.sh")
-(defpoll volume :interval "1s" "~/.config/eww/scripts/status/volume_status.sh")
-(defpoll muted :interval "1s" "~/.config/eww/scripts/status/muted_status.sh")
+(deflisten net_status `~/.config/eww/scripts/status/network_status.sh`)
+(deflisten volume `~/.config/eww/scripts/status/volume_status.sh`)
+(deflisten muted `~/.config/eww/scripts/status/muted_status.sh`)
 
 (defvar network_click "~/.config/eww/scripts/actions/network_click.sh")
 (defvar network_right_click "~/.config/eww/scripts/actions/network_right_click.sh")
@@ -80,7 +80,7 @@
   (box :orientation "v" :space-evenly false :spacing 14 :class "control" 
     (box :orientation "h" :spacing 10
       (btn :onclick {network_click} :onrightclick {network_right_click}
-        (pill :icon "" :text {net_status}  :active {net_status == "Online"})
+        (pill :icon "" :text {net_status == "true" ? "Online" : "Offline"}  :active {net_status == "true"})
         )
 
       (btn :onclick {bluetooth_click}
@@ -115,7 +115,7 @@
         )
       (eventbox :cursor "pointer" :halign "start" 
         (button :class "volume-mute" :onclick {volume_mute}
-          (label :class "icon" :text { muted == "1" ? "" : "" } :halign "start")
+          (label :class "icon" :text { muted == "true" ? "" : "" } :halign "start")
           )
         )
       )

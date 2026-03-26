@@ -1,2 +1,2 @@
-~/.local/bin/eww close powermenu
-nm-connection-editor
+nm-connection-editor &
+~/.local/bin/eww close powermenu &
