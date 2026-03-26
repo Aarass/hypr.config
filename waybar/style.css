@@ -45,7 +45,7 @@ window#waybar {
 #clock {
   font-family: Jetbrains Mono Nerd Font;
   padding: 0px 15px;
-  border-radius: 0 99px 99px 0;
+  border-radius: 99px;
   background-color: @background;
   color: @accent;
 }
@@ -73,9 +73,7 @@ window#waybar {
 #network {
   font-family: "Font Awesome 7 Free";
   background-color: @background;
-  padding: 0 0 0 15px;
   color: @accent;
-  border-radius: 99px 0 0 99px;
 }
 
 #bluetooth {
@@ -92,7 +90,6 @@ window#waybar {
   /* background-color: rgba(0, 0, 0, 0.7); */
   background-color: @background;
   margin-right: 8px;
-  padding: 0px 15px;
   color: @accent;
   border-radius: 99px;
 }
@@ -113,4 +110,13 @@ window#waybar {
   padding: 0px 15px;
   color: @accent;
   border-radius: 99px;
+}
+
+#custom-warnings {
+  font-family: "Font Awesome 7 Free";
+  background-color: @background;
+  color: @accent;
+  padding: 0px 15px;
+  border-radius: 99px;
+  margin-right: 8px;
 }

@@ -3,7 +3,7 @@
   "margin": "8 10 0 10",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["custom/tmux"],
-  "modules-right": ["battery", "network", "clock"],
+  "modules-right": ["custom/warnings", "battery", "clock"],
   "backlight/slider": {
     "min": 0,
     "max": 100,
@@ -15,12 +15,13 @@
     "unit": "GB",
   },
   "network": {
-    "format": "<span color='#9eb77c'></span>",
-    "format-disconnected": "<span color='#ea7b7b'></span>",
+    "format": "<span color='#ea7b7b'>    </span>",
+    "format-disconnected": "<span color='#ea7b7b'>  </span>",
   },
   "wireplumber": {
-    "format": "{icon} {volume}%",
-    "format-muted": "󰝟 Muted",
+    // "format": "{icon} {volume}%",
+    "format": "<span color='#ea7b7b'>    </span>",
+    "format-muted": "",
     "max-volume": 150,
     "scroll-step": 5,
     "tooltip": false,
@@ -56,7 +57,7 @@
     },
   },
   "clock": {
-    "format": "· {:%a, %b %d · <span  weight='extra-bold' color='#d5d1b9'>%H:%M %p</span>}",
+    "format": "{:%a, %b %d · <span  weight='extra-bold' color='#d5d1b9'>%H:%M %p</span>}",
     "markup": true,
     "tooltip": false,
     "on-click": "/home/aaras/.local/bin/eww open powermenu --toggle",
@@ -66,5 +67,9 @@
     "return-type": "json",
     "signal": 8,
     "format": "{}",
+  },
+  "custom/warnings": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/warnings.sh",
   },
 }
